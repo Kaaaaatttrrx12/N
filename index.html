@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bebby Portfolio - GitHub Website</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* ================= CSS พื้นฐานและตัวแปร ================= */
+        /* ================= CSS พื้นฐาน ================= */
         :root {
             --primary-pink: #ffb7c5;
             --soft-grey: #f4f4f4;
@@ -21,21 +21,29 @@
             --bg-color: #fffafb;
         }
 
-        * {
+        /* บังคับให้ทุกอย่างพอดีกรอบ 100% */
+        *, *::before, *::after {
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Mitr', sans-serif;
-            font-weight: 300;
+        body, html {
+            width: 100%;
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
             color: var(--dark-text);
-            padding-bottom: 120px;
-            overflow-x: hidden;
+            font-family: 'Mitr', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden; /* ป้องกันการเลื่อนซ้ายขวา 100% */
             user-select: none;
-            -webkit-tap-highlight-color: transparent; /* ปิดสีไฮไลต์เวลากดบนมือถือ */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* พื้นที่เว้นให้เมนูด้านล่าง */
+        .main-wrapper {
+            width: 100%;
+            padding-bottom: 120px; 
+            min-height: 100vh;
         }
 
         h1, h2, h3, h4, .section-title {
@@ -46,7 +54,7 @@
         .section-title {
             text-align: center;
             color: var(--primary-pink);
-            font-size: 2.2rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem); /* ปรับขนาดอักษรตามจอ */
             margin-bottom: 30px;
             text-shadow: 2px 2px 0px rgba(255, 183, 197, 0.2);
             letter-spacing: 1px;
@@ -74,9 +82,9 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: max-content;
-            max-width: 95%; /* ป้องกันล้นจอในมือถือ */
-            padding: 10px 15px;
+            width: 92%; /* ยืดหยุ่นตามหน้าจอ */
+            max-width: 500px; /* ไม่ให้กว้างเกินไปบนจอคอม */
+            padding: 8px;
             background: var(--bottom-bar-bg);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -88,18 +96,20 @@
 
         .tabs {
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
             list-style: none;
             padding: 0;
             margin: 0;
-            justify-content: space-around;
+            width: 100%;
         }
 
         .tab-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            flex: 1; /* แบ่งพื้นที่เท่าๆ กัน */
+            padding: 12px 0;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -108,13 +118,13 @@
         }
 
         .tab-item .icon {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.5rem); /* ไอคอนปรับขนาดอัตโนมัติ */
             transition: transform 0.3s;
         }
 
         .tab-item .text {
             font-family: 'Itim', cursive;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             max-width: 0;
             opacity: 0;
             overflow: hidden;
@@ -123,27 +133,27 @@
             margin-left: 0;
         }
 
-        .tab-item:hover { background-color: rgba(255, 183, 197, 0.15); }
         .tab-item:active { transform: scale(0.9); }
 
         .tab-item.active {
             background-color: var(--primary-pink);
             color: white;
-            padding: 12px 25px;
+            flex: 2; /* เมื่อกด ให้แถบยืดกว้างขึ้น */
         }
 
         .tab-item.active .text {
             max-width: 100px;
             opacity: 1;
-            margin-left: 10px;
+            margin-left: 8px;
         }
 
         /* ================= CSS ส่วนของเนื้อหา ================= */
         .content-section {
             display: none;
-            max-width: 800px; /* ขนาดพอดีสำหรับ iPad/MacBook */
-            margin: 20px auto;
-            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 15px; /* ลด Padding เพื่อให้มีที่ในมือถือเยอะขึ้น */
             animation: fadeIn 0.5s ease-out forwards;
         }
 
@@ -156,14 +166,17 @@
 
         /* ---------------- HOME ---------------- */
         .cover-photo {
-            width: 100%; height: 250px;
+            width: 100%; 
+            height: clamp(150px, 30vw, 250px); /* ความสูงยืดหยุ่น */
             background: #eee url('URL_รูปปกหลังของคุณ') center/cover;
-            border-radius: 15px; margin-bottom: -60px;
+            border-radius: 15px; 
+            margin-bottom: clamp(-40px, -8vw, -60px);
         }
 
         .profile-img {
-            width: 140px; height: 140px;
-            border-radius: 50%; border: 5px solid #fff;
+            width: clamp(100px, 25vw, 140px); 
+            height: clamp(100px, 25vw, 140px);
+            border-radius: 50%; border: 4px solid #fff;
             background: #ddd url('URL_รูปโปรไฟล์ของคุณ') center/cover;
             margin: 0 auto;
             animation: floatProfile 4s ease-in-out infinite;
@@ -177,141 +190,112 @@
         }
 
         .intro-box {
-            background: white; padding: 30px; border-radius: 20px;
+            background: white; 
+            padding: clamp(15px, 5vw, 30px); 
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             margin-top: 20px; text-align: center;
+            width: 100%;
         }
 
         .skills-container {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px;
         }
 
         .skill-badge {
-            background: #fff; padding: 10px 20px; border-radius: 50px;
-            display: flex; align-items: center; gap: 8px;
+            background: #fff; padding: 8px 15px; border-radius: 50px;
+            display: flex; align-items: center; gap: 6px;
             border: 1px solid var(--soft-grey); transition: 0.3s;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            font-weight: 400;
-        }
-
-        .skill-badge:hover {
-            transform: translateY(-5px); border-color: var(--primary-pink);
+            font-weight: 400; font-size: clamp(0.85rem, 3vw, 1rem);
         }
 
         .drive-link-box {
             background: rgba(116, 185, 255, 0.1); border: 2px dashed var(--accent-color);
-            padding: 20px; border-radius: 15px; margin-top: 20px; display: block;
+            padding: 15px; border-radius: 15px; margin-top: 20px; display: block;
             text-decoration: none; color: var(--accent-color); transition: 0.3s;
         }
-        .drive-link-box:hover { background: var(--accent-color); color: white; transform: scale(1.02); }
 
         /* ---------------- PRICE ---------------- */
         .price-category {
-            background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px;
+            background: white; border-radius: 20px; padding: clamp(15px, 5vw, 25px); margin-bottom: 25px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.03); border-top: 5px solid var(--primary-pink);
+            width: 100%;
         }
-        .category-title { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; margin-bottom: 15px; border-bottom: 2px dashed #f0f0f0; padding-bottom: 10px; }
-        .price-list { list-style: none; padding: 0; margin: 0; font-size: 1.05rem;}
-        .price-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #fafafa; }
+        .category-title { display: flex; align-items: center; gap: 10px; font-size: clamp(1.2rem, 4vw, 1.4rem); margin-bottom: 15px; border-bottom: 2px dashed #f0f0f0; padding-bottom: 10px; }
+        .price-list { list-style: none; padding: 0; margin: 0; font-size: clamp(0.95rem, 3.5vw, 1.05rem); width: 100%;}
+        .price-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #fafafa; flex-wrap: wrap; gap: 5px; }
         .price-item:last-child { border-bottom: none; }
-        .price-normal { font-weight: 500; color: var(--accent-color); }
-        .price-original { text-decoration: line-through; color: #ff4757; font-size: 0.9rem; margin-right: 8px; }
-        .price-discount { color: #2ed573; font-weight: 500; font-size: 1.15rem; }
-        .save-badge { background-color: #ffeaa7; color: #d35400; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; margin-left: 8px; font-weight: 500; }
+        .price-name { flex: 1; min-width: 120px; } /* ป้องกันชื่อยาวทะลุ */
+        .price-normal { font-weight: 500; color: var(--accent-color); white-space: nowrap; }
+        .price-original { text-decoration: line-through; color: #ff4757; font-size: 0.85rem; margin-right: 5px; }
+        .price-discount { color: #2ed573; font-weight: 500; font-size: 1.1rem; }
+        .save-badge { background-color: #ffeaa7; color: #d35400; padding: 2px 6px; border-radius: 12px; font-size: 0.75rem; margin-left: 5px; font-weight: 500; white-space: nowrap;}
 
         /* ---------------- STEP ---------------- */
         .rule-card {
-            background: white; border-radius: 15px; padding: 20px; margin-bottom: 15px;
+            background: white; border-radius: 15px; padding: clamp(15px, 4vw, 20px); margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; gap: 15px; align-items: flex-start;
+            flex-direction: row;
         }
-        .rule-icon { font-size: 2rem; color: var(--primary-pink); min-width: 40px; text-align: center; font-family: 'Itim', cursive; }
-        .rule-content h4 { margin: 0 0 5px 0; color: var(--dark-text); font-size: 1.2rem; }
-        .rule-content p { margin: 0; font-size: 1rem; color: #666; line-height: 1.5; }
+        .rule-icon { font-size: clamp(1.5rem, 6vw, 2rem); color: var(--primary-pink); min-width: 40px; text-align: center; font-family: 'Itim', cursive; }
+        .rule-content h4 { margin: 0 0 5px 0; color: var(--dark-text); font-size: clamp(1.1rem, 4vw, 1.2rem); }
+        .rule-content p { margin: 0; font-size: clamp(0.9rem, 3.5vw, 1rem); color: #666; line-height: 1.5; }
         
         .alert-box {
-            background: #fff0f0; border-left: 5px solid #ff4757; padding: 20px;
+            background: #fff0f0; border-left: 5px solid #ff4757; padding: clamp(15px, 4vw, 20px);
             border-radius: 0 15px 15px 0; margin-top: 25px;
         }
-        .alert-box ul { margin: 10px 0 0 0; padding-left: 20px; color: #ff4757; font-weight: 400; line-height: 1.6;}
+        .alert-box ul { margin: 10px 0 0 0; padding-left: 20px; color: #ff4757; font-weight: 400; line-height: 1.6; font-size: clamp(0.9rem, 3.5vw, 1rem);}
 
         /* ---------------- EXAMPLE ---------------- */
         .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* ยืดหยุ่นจัดเรียง 2-4 คอลัมน์ตามจอ */
+            gap: 15px;
+            width: 100%;
         }
         .gallery-item {
-            background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s;
+            background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 100%;
         }
-        .gallery-item:hover { transform: translateY(-5px); }
-        .gallery-img { width: 100%; height: 200px; background: #eee; object-fit: cover; }
-        .gallery-info { padding: 15px; text-align: center; font-weight: 500; color: var(--primary-pink); font-size: 1.1rem;}
+        .gallery-img { 
+            width: 100%; 
+            aspect-ratio: 4 / 3; /* ให้ภาพสมส่วนเสมอ */
+            object-fit: cover; 
+            background: #eee; 
+        }
+        .gallery-info { padding: 12px; text-align: center; font-weight: 500; color: var(--primary-pink); font-size: clamp(0.95rem, 3.5vw, 1.1rem);}
 
         /* ---------------- CONTACT ---------------- */
         .contact-container { text-align: center; }
         .contact-btn {
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            background: white; padding: 15px 30px; border-radius: 50px; text-decoration: none;
-            color: var(--dark-text); font-size: 1.2rem; font-weight: 500; margin-bottom: 15px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: white; padding: 12px 20px; border-radius: 50px; text-decoration: none;
+            color: var(--dark-text); font-size: clamp(1rem, 4vw, 1.2rem); font-weight: 500; margin-bottom: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s;
+            width: 100%; max-width: 350px; margin-left: auto; margin-right: auto;
         }
-        .contact-btn:hover { transform: scale(1.02); }
         .btn-line { border: 2px solid #06C755; color: #06C755; }
-        .btn-line:hover { background: #06C755; color: white; }
-
-        /* ================= MEDIA QUERIES (สำหรับมือถือและไอแพด) ================= */
         
-        /* แท็บเล็ต (iPad Portrait) / โทรศัพท์แนวนอน */
-        @media (max-width: 768px) {
-            .content-section { padding: 15px; margin-top: 10px; }
-            .cover-photo { height: 200px; }
-            .section-title { font-size: 1.8rem; }
-            .price-category { padding: 20px; }
-        }
-
-        /* โทรศัพท์มือถือแนวตั้ง (Mobile Phones) */
+        /* ================= MEDIA QUERIES พิเศษสำหรับมือถือเครื่องเล็ก ================= */
         @media (max-width: 480px) {
-            .cover-photo { height: 160px; margin-bottom: -50px; }
-            .profile-img { width: 110px; height: 110px; border-width: 4px; }
-            .intro-box { padding: 20px 15px; }
-            .section-title { font-size: 1.6rem; margin-bottom: 20px; }
-            
-            /* ปรับเมนูด้านล่างให้กะทัดรัดขึ้น */
-            .bottom-bar { padding: 8px 10px; width: 92%; }
-            .tabs { gap: 5px; }
-            .tab-item { padding: 10px; }
-            .tab-item .icon { font-size: 1.3rem; }
-            .tab-item.active { padding: 10px 15px; }
-            .tab-item.active .text { font-size: 0.95rem; margin-left: 5px; }
-            
-            /* ปรับหน้าราคา */
-            .category-title { font-size: 1.2rem; }
-            .price-list { font-size: 0.95rem; }
-            .price-item { padding: 12px 0; }
-            .price-discount { font-size: 1.05rem; }
-            .save-badge { font-size: 0.75rem; padding: 2px 6px; }
-
-            /* ปรับหน้ากติกา */
-            .rule-card { flex-direction: column; text-align: center; align-items: center; padding: 15px; }
-            .rule-icon { margin-bottom: 5px; }
-            .alert-box { padding: 15px; font-size: 0.95rem; }
-
-            /* ปรับหน้าตัวอย่างงาน */
-            .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
-            .gallery-img { height: 150px; }
-            .gallery-info { font-size: 1rem; padding: 10px; }
-
-            /* ปรับหน้าติดต่อ */
-            .contact-btn { font-size: 1.1rem; padding: 12px 20px; }
+            .rule-card { flex-direction: column; align-items: center; text-align: center; }
+            .rule-icon { margin-bottom: 10px; }
+            .price-item { flex-direction: column; align-items: flex-start; } /* ถ้าราคาและชื่อเบียดกัน ให้ตกลงมาบรรทัดใหม่ */
+            .price-item div, .price-normal { align-self: flex-end; }
         }
     </style>
 </head>
 <body>
 
+<div class="main-wrapper">
     <section id="home" class="content-section active-section">
         <div class="cover-photo"></div>
         <div style="text-align: center; position: relative;">
             <div class="profile-img"></div>
             <div class="intro-box">
-                <h2>🪿💖 : ˚꒰ welcome to bebby ꒱</h2>
+                <h2 style="margin-top:0;">🪿💖 : ˚꒰ welcome to bebby ꒱</h2>
                 <p>สั่งซื้อ / สอบถามทักไลน์ หรือ DM message</p>
                 <p style="font-size: 1.1rem; font-weight: 400; color: var(--primary-pink);">Admin Ice / Bebby</p>
                 <p style="color: #06C755; font-weight: 500; font-size: 1.1rem;"><i class="fab fa-line"></i> line : @741eynzz (มี@)</p>
@@ -348,56 +332,54 @@
         <div class="price-category">
             <h3 class="category-title"><i class="fas fa-paint-roller" style="color: #ff9ff3;"></i> งานป้าย / กราฟิก</h3>
             <ul class="price-list">
-                <li class="price-item"><span>บล็อก</span> <span class="price-normal">เริ่มต้น 99฿</span></li>
-                <li class="price-item"><span>แนวสว่าง / แนวเรียบ</span> <span class="price-normal">เริ่มต้น 45฿</span></li>
-                <li class="price-item"><span>แนวกึ่ง ads.</span> <span class="price-normal">เริ่มต้น 59฿</span></li>
-                <li class="price-item"><span>งานป้าย</span> <span class="price-normal">เริ่มต้น 49฿</span></li>
-                <li class="price-item"><span>Set ปกกลุ่ม + กรอบตัวอย่าง</span> <span class="price-normal">เริ่ม 99฿</span></li>
-                <li class="price-item"><span>ป้ายเรท</span> <span class="price-normal">เริ่มต้น 70฿</span></li>
-                <li class="price-item"><span>ป้ายเบอร์เงิน/ทอง</span> <span class="price-normal">เริ่มต้น 65฿</span></li>
-                <li class="price-item"><span>บัตรสะสมแต้ม</span> <span class="price-normal">เริ่มต้น 89฿</span></li>
-                <li class="price-item"><span>ปก X / ปกไลน์ official</span> <span class="price-normal">เริ่ม 69฿ / 80฿</span></li>
-                <li class="price-item"><span>ริชเมนู (เล็ก / ใหญ่)</span> <span class="price-normal">เริ่ม 69฿ / 100-120฿</span></li>
-                <li class="price-item"><span>ลายน้ำรูปตัวเอง / ตัวการ์ตูน</span> <span class="price-normal">เริ่ม 45฿ / 49฿</span></li>
+                <li class="price-item"><span class="price-name">บล็อก</span> <span class="price-normal">เริ่มต้น 99฿</span></li>
+                <li class="price-item"><span class="price-name">แนวสว่าง / แนวเรียบ</span> <span class="price-normal">เริ่มต้น 45฿</span></li>
+                <li class="price-item"><span class="price-name">แนวกึ่ง ads.</span> <span class="price-normal">เริ่มต้น 59฿</span></li>
+                <li class="price-item"><span class="price-name">งานป้าย</span> <span class="price-normal">เริ่มต้น 49฿</span></li>
+                <li class="price-item"><span class="price-name">Set ปกกลุ่ม+กรอบ</span> <span class="price-normal">เริ่ม 99฿</span></li>
+                <li class="price-item"><span class="price-name">ป้ายเรท</span> <span class="price-normal">เริ่มต้น 70฿</span></li>
+                <li class="price-item"><span class="price-name">ป้ายเบอร์เงิน/ทอง</span> <span class="price-normal">เริ่มต้น 65฿</span></li>
+                <li class="price-item"><span class="price-name">บัตรสะสมแต้ม</span> <span class="price-normal">เริ่มต้น 89฿</span></li>
+                <li class="price-item"><span class="price-name">ปก X / ปกไลน์ off.</span> <span class="price-normal">เริ่ม 69฿ / 80฿</span></li>
+                <li class="price-item"><span class="price-name">ริชเมนู (เล็ก / ใหญ่)</span> <span class="price-normal">เริ่ม 69฿ / 100฿</span></li>
+                <li class="price-item"><span class="price-name">ลายน้ำรูปตัวเอง</span> <span class="price-normal">เริ่ม 45฿</span></li>
             </ul>
         </div>
 
         <div class="price-category">
             <h3 class="category-title"><i class="fas fa-certificate" style="color: #feca57;"></i> ลายน้ำแบบเหมา</h3>
-            <h4 style="color: #ff7675; font-size: 1.2rem;">🌈 แบบสีสัน (ปกติงานละ 25฿)</h4>
+            <h4 style="color: #ff7675; font-size: 1.2rem; margin-top:0;">🌈 แบบสีสัน (ปกติ 25฿)</h4>
             <ul class="price-list">
-                <li class="price-item"><span>5 งาน</span> <span class="price-normal">125฿</span></li>
-                <li class="price-item"><span>10 งาน</span> <div style="text-align: right;"><span class="price-original">250฿</span><span class="price-discount">240฿</span><span class="save-badge">ลด 10฿</span></div></li>
-                <li class="price-item"><span>15 งาน</span> <div style="text-align: right;"><span class="price-original">375฿</span><span class="price-discount">360฿</span><span class="save-badge">ลด 15฿</span></div></li>
-                <li class="price-item"><span>20 งาน</span> <div style="text-align: right;"><span class="price-original">500฿</span><span class="price-discount">470฿</span><span class="save-badge">ลด 30฿</span></div></li>
-                <li class="price-item"><span>25 งาน</span> <div style="text-align: right;"><span class="price-original">625฿</span><span class="price-discount">585฿</span><span class="save-badge">ลด 40฿</span></div></li>
-                <li class="price-item"><span>30 งาน</span> <div style="text-align: right;"><span class="price-original">750฿</span><span class="price-discount">700฿</span><span class="save-badge">ลด 50฿</span></div></li>
+                <li class="price-item"><span class="price-name">5 งาน</span> <span class="price-normal">125฿</span></li>
+                <li class="price-item"><span class="price-name">10 งาน</span> <div><span class="price-original">250฿</span><span class="price-discount">240฿</span><span class="save-badge">ลด 10฿</span></div></li>
+                <li class="price-item"><span class="price-name">15 งาน</span> <div><span class="price-original">375฿</span><span class="price-discount">360฿</span><span class="save-badge">ลด 15฿</span></div></li>
+                <li class="price-item"><span class="price-name">20 งาน</span> <div><span class="price-original">500฿</span><span class="price-discount">470฿</span><span class="save-badge">ลด 30฿</span></div></li>
+                <li class="price-item"><span class="price-name">30 งาน</span> <div><span class="price-original">750฿</span><span class="price-discount">700฿</span><span class="save-badge">ลด 50฿</span></div></li>
             </ul>
-            <h4 style="margin-top: 20px; color: #576574; font-size: 1.2rem;">🖤 แบบสีขาวดำ (ปกติงานละ 15฿)</h4>
+            <h4 style="margin-top: 20px; color: #576574; font-size: 1.2rem;">🖤 สีขาวดำ (ปกติ 15฿)</h4>
             <ul class="price-list">
-                <li class="price-item"><span>5 งาน</span> <span class="price-normal">75฿</span></li>
-                <li class="price-item"><span>10 งาน</span> <div style="text-align: right;"><span class="price-original">150฿</span><span class="price-discount">145฿</span><span class="save-badge">ลด 5฿</span></div></li>
-                <li class="price-item"><span>15 งาน</span> <div style="text-align: right;"><span class="price-original">225฿</span><span class="price-discount">210฿</span><span class="save-badge">ลด 15฿</span></div></li>
-                <li class="price-item"><span>20 งาน</span> <div style="text-align: right;"><span class="price-original">300฿</span><span class="price-discount">275฿</span><span class="save-badge">ลด 25฿</span></div></li>
+                <li class="price-item"><span class="price-name">5 งาน</span> <span class="price-normal">75฿</span></li>
+                <li class="price-item"><span class="price-name">10 งาน</span> <div><span class="price-original">150฿</span><span class="price-discount">145฿</span><span class="save-badge">ลด 5฿</span></div></li>
+                <li class="price-item"><span class="price-name">20 งาน</span> <div><span class="price-original">300฿</span><span class="price-discount">275฿</span><span class="save-badge">ลด 25฿</span></div></li>
             </ul>
         </div>
 
         <div class="price-category">
             <h3 class="category-title"><i class="fas fa-book" style="color: #48dbfb;"></i> งานทั่วไป & การบ้าน</h3>
             <ul class="price-list">
-                <li class="price-item"><span>สไลด์นำเสนอ</span> <span class="price-normal">หน้าละ 20฿</span></li>
-                <li class="price-item"><span>อินโฟกราฟิก / แผ่นพับ</span> <span class="price-normal">เริ่มต้น 79฿</span></li>
-                <li class="price-item"><span>มายแมพ (พิมพ์ / เขียน)</span> <span class="price-normal">เริ่ม 60฿ / 70฿</span></li>
-                <li class="price-item"><span>งานลอก (สมุด/รายงาน/A4)</span> <span class="price-normal">หน้าละ 10฿ / 15฿ / 20฿</span></li>
-                <li class="price-item"><span>คณิตศาสตร์ (ตอบอย่างเดียว / วิธีทำ)</span> <span class="price-normal">ข้อละ 5฿ / 10฿</span></li>
-                <li class="price-item"><span>ภาษาอังกฤษ</span> <span class="price-normal">ข้อละ 3-5฿</span></li>
+                <li class="price-item"><span class="price-name">สไลด์นำเสนอ</span> <span class="price-normal">หน้าละ 20฿</span></li>
+                <li class="price-item"><span class="price-name">อินโฟกราฟิก</span> <span class="price-normal">เริ่มต้น 79฿</span></li>
+                <li class="price-item"><span class="price-name">มายแมพ (พิมพ์/เขียน)</span> <span class="price-normal">เริ่ม 60฿/70฿</span></li>
+                <li class="price-item"><span class="price-name">งานลอก (สมุด/รายงาน)</span> <span class="price-normal">หน้าละ 10฿/15฿</span></li>
+                <li class="price-item"><span class="price-name">คณิตศาสตร์ (ตอบ/วิธีทำ)</span> <span class="price-normal">ข้อละ 5฿/10฿</span></li>
+                <li class="price-item"><span class="price-name">ภาษาอังกฤษ</span> <span class="price-normal">ข้อละ 3-5฿</span></li>
             </ul>
         </div>
 
-        <div class="price-category" style="background: #fff3f5; border-top:none; font-size: 1.05rem;">
+        <div class="price-category" style="background: #fff3f5; border-top:none; font-size: clamp(0.9rem, 3.5vw, 1rem);">
             <strong>📌 หมายเหตุเพิ่มเติม:</strong><br>
             <div style="margin-top: 8px; line-height: 1.6;">
-                - ราคาขึ้นอยู่กับความยากง่าย + ระยะเวลาการทำงาน<br>
+                - ราคาขึ้นอยู่กับความยากง่าย + ระยะเวลา<br>
                 - <span style="color:#ff4757; font-weight: 500;">งานเร่งบวกราคาเพิ่ม 50-150฿</span><br>
                 - ทุกงานทำเป็นความลับ / รองานปกติ 5-12 วัน<br>
                 - บริการส่งงานเป็นพัสดุทั่วประเทศ
@@ -407,7 +389,7 @@
 
     <section id="step" class="content-section">
         <h2 class="section-title">🐾 กติกาการจ้างงาน 🐾</h2>
-        <p style="text-align: center; color: #888; margin-bottom: 25px; font-size: 1.1rem;">โปรดอ่านทุกครั้งก่อนตัดสินใจจ้างงานนะคะ</p>
+        <p style="text-align: center; color: #888; margin-bottom: 25px; font-size: clamp(0.95rem, 3.5vw, 1.1rem);">โปรดอ่านทุกครั้งก่อนตัดสินใจจ้างงานนะคะ</p>
 
         <div class="rule-card">
             <div class="rule-icon">1️⃣</div>
@@ -422,7 +404,7 @@
             <div class="rule-content">
                 <h4>กติกาการโอนเงิน</h4>
                 <p>• <strong>โอน 100%</strong>: โอนเต็มจำนวนก่อนเริ่มงาน<br>
-                   • <strong>โอน 50%</strong>: (สำหรับยอด 300฿ ขึ้นไป) โอนครึ่งราคา จะไม่มีการอัพเดทงานระหว่างทำ และต้องโอนที่เหลือก่อนรับมอบงาน</p>
+                   • <strong>โอน 50%</strong>: (ยอด 300฿ ขึ้นไป) จะไม่มีอัพเดทงานระหว่างทำ และต้องโอนที่เหลือก่อนรับงาน</p>
             </div>
         </div>
 
@@ -443,11 +425,11 @@
         </div>
 
         <div class="alert-box">
-            <h4><i class="fas fa-exclamation-triangle"></i> คำเตือนสำหรับการสั่งงาน</h4>
+            <h4><i class="fas fa-exclamation-triangle"></i> คำเตือน</h4>
             <ul>
                 <li>ไม่รับทำงานตามแบบร้านอื่นทุกกรณี</li>
-                <li>ห้ามนำงานที่สั่งทำไปขายต่อเด็ดขาด (ถ้าจะขายต้องแจ้งก่อน)</li>
-                <li>ห้ามนำงานของร้านไปให้ที่อื่นทำเด็ดขาด</li>
+                <li>ห้ามนำงานที่สั่งทำไปขายต่อ (ต้องแจ้งก่อน)</li>
+                <li>ห้ามนำงานของร้านไปให้ที่อื่นทำ</li>
                 <li>ห้ามแอบอ้างผลงานทุกกรณี</li>
             </ul>
         </div>
@@ -455,23 +437,23 @@
 
     <section id="example" class="content-section">
         <h2 class="section-title">🖼️ Example Works 🖼️</h2>
-        <p style="text-align: center; margin-bottom: 20px; font-size: 1.1rem;">ตัวอย่างผลงานพร้อมราคาอ้างอิง</p>
+        <p style="text-align: center; margin-bottom: 20px;">ตัวอย่างผลงานพร้อมราคาอ้างอิง</p>
         
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="https://via.placeholder.com/300x200/ffb7c5/ffffff?text=Example+1" class="gallery-img" alt="งานตัวอย่าง">
+                <img src="https://via.placeholder.com/400x300/ffb7c5/ffffff?text=Example+1" class="gallery-img" alt="งานตัวอย่าง">
                 <div class="gallery-info">ป้ายเมนู - 150฿</div>
             </div>
             <div class="gallery-item">
-                <img src="https://via.placeholder.com/300x200/74b9ff/ffffff?text=Example+2" class="gallery-img" alt="งานตัวอย่าง">
+                <img src="https://via.placeholder.com/400x300/74b9ff/ffffff?text=Example+2" class="gallery-img" alt="งานตัวอย่าง">
                 <div class="gallery-info">ลายน้ำแบบเหมา - 240฿</div>
             </div>
             <div class="gallery-item">
-                <img src="https://via.placeholder.com/300x200/feca57/ffffff?text=Example+3" class="gallery-img" alt="งานตัวอย่าง">
+                <img src="https://via.placeholder.com/400x300/feca57/ffffff?text=Example+3" class="gallery-img" alt="งานตัวอย่าง">
                 <div class="gallery-info">โปสเตอร์กราฟิก - 60฿</div>
             </div>
             <div class="gallery-item">
-                <img src="https://via.placeholder.com/300x200/2ed573/ffffff?text=Example+4" class="gallery-img" alt="งานตัวอย่าง">
+                <img src="https://via.placeholder.com/400x300/2ed573/ffffff?text=Example+4" class="gallery-img" alt="งานตัวอย่าง">
                 <div class="gallery-info">มายแมพแบบเขียน - 70฿</div>
             </div>
         </div>
@@ -481,8 +463,8 @@
         <h2 class="section-title">💌 ช่องทางการติดต่อ 💌</h2>
         <div class="intro-box contact-container">
             <div class="profile-img" style="width: 100px; height: 100px; margin-bottom: 20px;"></div>
-            <h3 style="font-size: 1.5rem; color: var(--primary-pink);">Bebby / Admin Ice</h3>
-            <p style="margin-bottom: 30px; font-size: 1.1rem;">พร้อมตอบเสมอ ทักมาสอบถามคิวงานก่อนได้เลยค่า 💕</p>
+            <h3 style="font-size: clamp(1.2rem, 5vw, 1.5rem); color: var(--primary-pink); margin-top:0;">Bebby / Admin Ice</h3>
+            <p style="margin-bottom: 30px; font-size: clamp(0.95rem, 3.5vw, 1.1rem);">พร้อมตอบเสมอ ทักมาสอบถามคิวงานก่อนได้เลยค่า 💕</p>
 
             <a href="https://line.me/ti/p/~@741eynzz" target="_blank" class="contact-btn btn-line">
                 <i class="fab fa-line fa-2x"></i> LINE: @741eynzz
@@ -493,62 +475,62 @@
             </a>
         </div>
     </section>
+</div>
 
-    <nav class="bottom-bar">
-        <ul class="tabs">
-            <li class="tab-item active" onclick="showTab('home')">
-                <span class="icon">🏠</span><span class="text">Home</span>
-            </li>
-            <li class="tab-item" onclick="showTab('price')">
-                <span class="icon">💸</span><span class="text">Price</span>
-            </li>
-            <li class="tab-item" onclick="showTab('step')">
-                <span class="icon">🐾</span><span class="text">Step</span>
-            </li>
-            <li class="tab-item" onclick="showTab('example')">
-                <span class="icon">🖼️</span><span class="text">Example</span>
-            </li>
-            <li class="tab-item" onclick="showTab('contact')">
-                <span class="icon">💌</span><span class="text">Contact</span>
-            </li>
-        </ul>
-    </nav>
+<nav class="bottom-bar">
+    <ul class="tabs">
+        <li class="tab-item active" onclick="showTab('home')">
+            <span class="icon">🏠</span><span class="text">Home</span>
+        </li>
+        <li class="tab-item" onclick="showTab('price')">
+            <span class="icon">💸</span><span class="text">Price</span>
+        </li>
+        <li class="tab-item" onclick="showTab('step')">
+            <span class="icon">🐾</span><span class="text">Step</span>
+        </li>
+        <li class="tab-item" onclick="showTab('example')">
+            <span class="icon">🖼️</span><span class="text">Example</span>
+        </li>
+        <li class="tab-item" onclick="showTab('contact')">
+            <span class="icon">💌</span><span class="text">Contact</span>
+        </li>
+    </ul>
+</nav>
 
-    <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
-            document.querySelectorAll('.tab-item').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            document.getElementById(tabId).classList.add('active-section');
-            event.currentTarget.classList.add('active');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        const emojis = ['🧸', '🪿', '🎨', '⭐️', '🍄', '💖', '✨', '🐾', '🎀', '🪄'];
-        
-        document.addEventListener('click', function(e) {
-            // ไม่แสดงอิโมจิเวลาจิ้มโดนลิงก์หรือเมนูด้านล่าง
-            if (e.target.closest('.bottom-bar') || e.target.closest('a')) return;
-
-            const emojiEl = document.createElement('div');
-            emojiEl.className = 'click-emoji';
-            
-            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-            emojiEl.textContent = randomEmoji;
-            
-            emojiEl.style.left = e.pageX + 'px';
-            emojiEl.style.top = e.pageY + 'px';
-            
-            document.body.appendChild(emojiEl);
-            
-            setTimeout(() => { emojiEl.remove(); }, 1000);
+<script>
+    function showTab(tabId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active-section');
         });
-    </script>
+        document.querySelectorAll('.tab-item').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        document.getElementById(tabId).classList.add('active-section');
+        event.currentTarget.classList.add('active');
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const emojis = ['🧸', '🪿', '🎨', '⭐️', '🍄', '💖', '✨', '🐾', '🎀', '🪄'];
+    
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.bottom-bar') || e.target.closest('a')) return;
+
+        const emojiEl = document.createElement('div');
+        emojiEl.className = 'click-emoji';
+        
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        emojiEl.textContent = randomEmoji;
+        
+        emojiEl.style.left = e.pageX + 'px';
+        emojiEl.style.top = e.pageY + 'px';
+        
+        document.body.appendChild(emojiEl);
+        
+        setTimeout(() => { emojiEl.remove(); }, 1000);
+    });
+</script>
 
 </body>
 </html>

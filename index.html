@@ -2,575 +2,394 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bebby Portfolio - GitHub Website</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebby - Portfolio & Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ================= CSS พื้นฐาน ================= */
-        :root {
-            --primary-pink: #ffb7c5;
-            --soft-grey: #f4f4f4;
-            --dark-text: #444;
-            --accent-color: #74b9ff;
-            --bottom-bar-bg: rgba(255, 255, 255, 0.85);
-            --bottom-bar-border: rgba(255, 255, 255, 0.5);
-            --bg-color: #fffafb;
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
-        body, html {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--dark-text);
-            font-family: 'Mitr', sans-serif;
-            font-weight: 300;
-            overflow-x: hidden;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .main-wrapper {
-            width: 100%;
-            padding-bottom: 120px; 
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, h4, .section-title {
-            font-family: 'Itim', cursive;
-            font-weight: 400;
-        }
-
-        .section-title {
-            text-align: center;
-            color: var(--primary-pink);
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 0px rgba(255, 183, 197, 0.2);
-            letter-spacing: 1px;
-        }
-
-        /* ================= CSS ลูกเล่นจิ้มจอ ================= */
-        .click-emoji {
-            position: absolute;
-            pointer-events: none;
-            font-size: 1.8rem;
-            transform: translate(-50%, -50%);
-            animation: floatUpAndPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            z-index: 9999;
-        }
-
-        @keyframes floatUpAndPop {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
-            50% { transform: translate(-50%, -100px) scale(1.2); opacity: 1; }
-            100% { transform: translate(-50%, -150px) scale(0.8); opacity: 0; }
-        }
-
-        /* ================= CSS แถบเมนูด้านล่าง ================= */
-        .bottom-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 92%;
-            max-width: 500px;
-            padding: 8px;
-            background: var(--bottom-bar-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 2px solid var(--bottom-bar-border);
-            border-radius: 50px;
-            box-shadow: 0 10px 25px rgba(255, 183, 197, 0.3);
-            z-index: 1000;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-        }
-
-        .tab-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            padding: 12px 0;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            background: transparent;
-            color: var(--dark-text);
-        }
-
-        .tab-item .icon {
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
-            transition: transform 0.3s;
-        }
-
-        .tab-item .text {
-            font-family: 'Itim', cursive;
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            white-space: nowrap;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            margin-left: 0;
-        }
-
-        .tab-item:active { transform: scale(0.9); }
-
-        .tab-item.active {
-            background-color: var(--primary-pink);
-            color: white;
-            flex: 2;
-        }
-
-        .tab-item.active .text {
-            max-width: 100px;
-            opacity: 1;
-            margin-left: 8px;
-        }
-
-        /* ================= CSS ส่วนของเนื้อหา ================= */
-        .content-section {
-            display: none;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px 15px;
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .active-section { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ---------------- HOME ---------------- */
-        .cover-photo {
-            width: 100%; 
-            height: clamp(150px, 30vw, 250px);
-            background: #eee url('URL_รูปปกหลังของคุณ') center/cover;
-            border-radius: 15px; 
-            margin-bottom: clamp(-40px, -8vw, -60px);
-        }
-
-        .profile-img {
-            width: clamp(100px, 25vw, 140px); 
-            height: clamp(100px, 25vw, 140px);
-            border-radius: 50%; border: 4px solid #fff;
-            background: #ddd url('URL_รูปโปรไฟล์ของคุณ') center/cover;
-            margin: 0 auto;
-            animation: floatProfile 4s ease-in-out infinite;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        @keyframes floatProfile {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .intro-box {
-            background: white; 
-            padding: clamp(15px, 5vw, 30px); 
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-top: 20px; text-align: center;
-            width: 100%;
-        }
-
-        .skills-container {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px;
-        }
-
-        .skill-badge {
-            background: #fff; padding: 8px 15px; border-radius: 50px;
-            display: flex; align-items: center; gap: 6px;
-            border: 1px solid var(--soft-grey); transition: 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            font-weight: 400; font-size: clamp(0.85rem, 3vw, 1rem);
-        }
-
-        .drive-link-box {
-            background: rgba(116, 185, 255, 0.1); border: 2px dashed var(--accent-color);
-            padding: 15px; border-radius: 15px; margin-top: 20px; display: block;
-            text-decoration: none; color: var(--accent-color); transition: 0.3s;
-        }
-
-        /* ---------------- PRICE ---------------- */
-        .price-category {
-            background: white; border-radius: 20px; padding: clamp(15px, 5vw, 25px); margin-bottom: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03); border-top: 5px solid var(--primary-pink);
-            width: 100%;
-        }
-        .category-title { display: flex; align-items: center; gap: 10px; font-size: clamp(1.2rem, 4vw, 1.4rem); margin-bottom: 15px; border-bottom: 2px dashed #f0f0f0; padding-bottom: 10px; }
-        .price-list { list-style: none; padding: 0; margin: 0; font-size: clamp(0.95rem, 3.5vw, 1.05rem); width: 100%;}
-        .price-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #fafafa; flex-wrap: wrap; gap: 5px; }
-        .price-item:last-child { border-bottom: none; }
-        .price-name { flex: 1; min-width: 120px; }
-        .price-normal { font-weight: 500; color: var(--accent-color); white-space: nowrap; }
-        .price-original { text-decoration: line-through; color: #ff4757; font-size: 0.85rem; margin-right: 5px; }
-        .price-discount { color: #2ed573; font-weight: 500; font-size: 1.1rem; }
-        .save-badge { background-color: #ffeaa7; color: #d35400; padding: 2px 6px; border-radius: 12px; font-size: 0.75rem; margin-left: 5px; font-weight: 500; white-space: nowrap;}
-
-        /* ---------------- STEP ---------------- */
-        .rule-card {
-            background: white; border-radius: 15px; padding: clamp(15px, 4vw, 20px); margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; gap: 15px; align-items: flex-start;
-            flex-direction: row;
-        }
-        .rule-icon { font-size: clamp(1.5rem, 6vw, 2rem); color: var(--primary-pink); min-width: 40px; text-align: center; font-family: 'Itim', cursive; }
-        .rule-content h4 { margin: 0 0 5px 0; color: var(--dark-text); font-size: clamp(1.1rem, 4vw, 1.2rem); }
-        .rule-content p { margin: 0; font-size: clamp(0.9rem, 3.5vw, 1rem); color: #666; line-height: 1.5; }
+        body { font-family: 'Kanit', sans-serif; background-color: #f8f9fa; overflow-x: hidden; }
+        .tab-content { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .alert-box {
-            background: #fff0f0; border-left: 5px solid #ff4757; padding: clamp(15px, 4vw, 20px);
-            border-radius: 0 15px 15px 0; margin-top: 25px;
+        /* Glassmorphism Folder */
+        .glass-folder {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
         }
-        .alert-box ul { margin: 10px 0 0 0; padding-left: 20px; color: #ff4757; font-weight: 400; line-height: 1.6; font-size: clamp(0.9rem, 3.5vw, 1rem);}
-
-        /* ---------------- EXAMPLE ---------------- */
-        .gallery-grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            width: 100%;
-        }
-        .gallery-item {
-            background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            width: 100%;
-        }
-        .gallery-img { 
-            width: 100%; 
-            aspect-ratio: 4 / 3;
-            object-fit: cover; 
-            background: #eee; 
-        }
-        .gallery-info { padding: 12px; text-align: center; font-weight: 500; color: var(--primary-pink); font-size: clamp(0.95rem, 3.5vw, 1.1rem);}
-
-        /* ---------------- CONTACT ---------------- */
-        .contact-container { text-align: center; }
-        .contact-btn {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            background: white; padding: 12px 20px; border-radius: 50px; text-decoration: none;
-            color: var(--dark-text); font-size: clamp(1rem, 4vw, 1.2rem); font-weight: 500; margin-bottom: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s;
-            width: 100%; max-width: 350px; margin-left: auto; margin-right: auto;
-        }
-        .btn-line { border: 2px solid #06C755; color: #06C755; }
         
-        @media (max-width: 480px) {
-            .rule-card { flex-direction: column; align-items: center; text-align: center; }
-            .rule-icon { margin-bottom: 10px; }
-            .price-item { flex-direction: column; align-items: flex-start; }
-            .price-item div, .price-normal { align-self: flex-end; }
-        }
+        /* Progress Bar Animation */
+        .progress-bar { transition: width 1.5s ease-in-out; }
+
+        /* Music Player */
+        #music-player { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: white; padding: 10px 15px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; }
+        
+        /* Timeline */
+        .timeline-item { position: relative; padding-left: 30px; margin-bottom: 20px; border-left: 2px solid #ddd; }
+        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #000; }
     </style>
 </head>
-<body>
+<body class="text-gray-800">
 
-<div class="main-wrapper">
-    <section id="home" class="content-section active-section">
-        <div class="cover-photo"></div>
-        <div style="text-align: center; position: relative;">
-            <div class="profile-img"></div>
-            <div class="intro-box">
-                <h2 style="margin-top:0;">🪿💖 : ˚꒰ welcome to bebby ꒱</h2>
-                <p>สั่งซื้อ / สอบถามทักไลน์ หรือ DM message</p>
-                <p style="font-size: 1.1rem; font-weight: 400; color: var(--primary-pink);">Admin Ice / Bebby</p>
-                <p style="color: #06C755; font-weight: 500; font-size: 1.1rem;"><i class="fab fa-line"></i> line : @741eynzz (มี@)</p>
-                
-                <hr style="border: 0; border-top: 1px dashed #ddd; margin: 20px 0;">
-                
+    <nav class="bg-white shadow-md fixed w-full top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between md:justify-center space-x-2 md:space-x-8 py-4 overflow-x-auto text-sm md:text-base font-semibold whitespace-nowrap">
+                <button onclick="changeTab('home')" class="nav-btn text-black border-b-2 border-black pb-1" data-target="home">Home</button>
+                <button onclick="changeTab('price')" class="nav-btn text-gray-500 hover:text-black pb-1" data-target="price">Price</button>
+                <button onclick="changeTab('step')" class="nav-btn text-gray-500 hover:text-black pb-1" data-target="step">Step</button>
+                <button onclick="changeTab('example')" class="nav-btn text-gray-500 hover:text-black pb-1" data-target="example">Example</button>
+                <button onclick="changeTab('contact')" class="nav-btn text-gray-500 hover:text-black pb-1" data-target="contact">Contact</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="music-player">
+        <div class="text-xs font-bold mr-2"><i class="fa-brands fa-youtube text-red-500"></i> BGM</div>
+        <button id="playPauseBtn" onclick="togglePlay()" class="text-gray-700 hover:text-black"><i class="fas fa-play"></i></button>
+        <button onclick="nextVideo()" class="text-gray-700 hover:text-black"><i class="fas fa-forward"></i></button>
+        <div id="yt-player" class="hidden"></div>
+    </div>
+
+    <div class="pt-20 pb-20 max-w-5xl mx-auto px-4">
+
+        <section id="home" class="tab-content active">
+            <div class="relative bg-gray-200 h-64 rounded-xl overflow-hidden shadow-inner">
+                <img src="https://via.placeholder.com/1200x400?text=Cover+Image" alt="Cover" class="w-full h-full object-cover">
+            </div>
+            <div class="flex justify-center -mt-16 relative z-10">
+                <img src="https://via.placeholder.com/150" alt="Profile" class="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover">
+            </div>
+            
+            <div class="text-center mt-4 mb-10">
+                <h1 class="text-3xl font-bold">Welcome to bebby</h1>
+                <p class="text-gray-600 mt-2">Admin ice / bebby</p>
+                <p class="text-sm mt-1 bg-black text-white inline-block px-4 py-1 rounded-full">สั่งซื้อ / สอบถามทักไลน์ หรือ DM message</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm mb-8 space-y-3 text-sm md:text-base">
+                <p>🐈‍⬛ 𓏔 line : <b>@741eynzz</b> (มี@)</p>
                 <p>𓈒 —🐈‍⬛ งานป้ายเริ่มต้น 49 - 599฿ มีราคาเหมา 3 ป้ายขึ้นไป ┊</p>
-                <p>รองาน 1 - 14 วันตามคิว ( สอบถามคิวงานก่อนได้ค่ะ )</p>
-                <p>📓 คิดราคาตามรายละเอียดของงาน ปรึกษาได้น้า💡🧸</p>
+                <p>⏳ รองาน 1 - 14 วันตามคิว ( สอบถามคิวงานก่อนได้ค่ะ )</p>
+                <p>📓 คิดราคาตามรายละเอียดของงาน ปรึกษาได้น้า 💡🧸</p>
+                <p>📁 : <b>ส่งงานผ่าน Google Drive เท่านั้น !</b></p>
+                <p>✅ : บรีฟงานได้ทุกอย่าง ข้อมูลลูกค้าต้องพกเตรียมมาเอง</p>
+            </div>
 
-                <a href="https://drive.google.com/drive/folders/1x3qtzrZDN9xQmhgP2O4LZGkTSUWg92kG" class="drive-link-box" target="_blank">
-                    <i class="fas fa-folder-open fa-2x" style="margin-bottom: 10px;"></i><br>
-                    <span style="font-size: 1.1rem; font-weight: 500;">ส่งงานผ่าน Google Drive เท่านั้น !</span><br>
-                    <small>(คลิกที่นี่เพื่อเปิดดูโฟลเดอร์)</small>
+            <div class="grid md:grid-cols-2 gap-8 mb-10">
+                <a href="https://drive.google.com/drive/folders/1x3qtzrZDN9xQmhgP2O4LZGkTSUWg92kG" target="_blank" class="block group">
+                    <div class="relative h-64 bg-gray-100 rounded-2xl p-6 flex flex-col justify-center items-center shadow-md transition-transform transform hover:scale-105">
+                        <div class="w-32 h-24 bg-gray-800 rounded-lg relative shadow-xl">
+                            <div class="absolute w-28 h-20 bg-white left-2 -top-4 rounded flex flex-col gap-2 p-2 shadow-sm">
+                                <div class="w-full h-1 bg-gray-200 rounded"></div>
+                                <div class="w-3/4 h-1 bg-gray-200 rounded"></div>
+                                <div class="w-5/6 h-1 bg-gray-200 rounded"></div>
+                            </div>
+                            <div class="absolute w-full h-20 bottom-0 left-0 glass-folder rounded-b-lg flex items-center justify-center">
+                                <i class="fa-brands fa-google-drive text-3xl text-gray-800 opacity-80"></i>
+                            </div>
+                        </div>
+                        <p class="mt-8 font-semibold text-gray-700 group-hover:text-black">คลิกเพื่อดู Google Drive</p>
+                    </div>
                 </a>
-                
-                <p style="margin-top: 20px;"><i class="fas fa-check-circle" style="color: #4cd137;"></i> บรีฟงานได้ทุกอย่าง ข้อมูลลูกค้าต้องพกเตรียมมาเอง</p>
 
-                <h3 style="margin-top: 30px; color: var(--primary-pink);">Hard Skills</h3>
-                <div class="skills-container">
-                    <div class="skill-badge"><i class="fas fa-paint-brush"></i> Canva</div>
-                    <div class="skill-badge"><i class="fas fa-video"></i> CapCut</div>
-                    <div class="skill-badge"><i class="fas fa-pen-nib"></i> ibis paint</div>
-                    <div class="skill-badge"><i class="fas fa-palette"></i> Procreate</div>
-                    <div class="skill-badge"><i class="fas fa-magic"></i> Clip Studio Paint</div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm flex flex-col justify-center">
+                    <h2 class="text-xl font-bold mb-6 text-center">Hard Skills</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Canva_icon_2021.svg" class="w-8 h-8 rounded" alt="Canva">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">Canva</p>
+                                <div class="w-full bg-gray-200 h-2 rounded-full mt-1"><div class="bg-black h-2 rounded-full progress-bar" style="width: 100%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://img.icons8.com/color/48/capcut.png" class="w-8 h-8 rounded" alt="CapCut">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">CapCut</p>
+                                <div class="w-full bg-gray-200 h-2 rounded-full mt-1"><div class="bg-black h-2 rounded-full progress-bar" style="width: 90%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://play-lh.googleusercontent.com/tHqgU_v_nIf2tO_4K21ZkIInBqXpE28LhMv86w0nK6X0jQz4lBqW0cQ_o4Y9R-l_tA" class="w-8 h-8 rounded" alt="ibis Paint">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">ibis Paint</p>
+                                <div class="w-full bg-gray-200 h-2 rounded-full mt-1"><div class="bg-black h-2 rounded-full progress-bar" style="width: 80%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Procreate_App_Icon.png" class="w-8 h-8 rounded" alt="Procreate">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">Procreate</p>
+                                <div class="w-full bg-gray-200 h-2 rounded-full mt-1"><div class="bg-black h-2 rounded-full progress-bar" style="width: 75%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Clip_Studio_Paint_logo.png" class="w-8 h-8 rounded" alt="Clip Studio Paint">
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">Clip Studio Paint</p>
+                                <div class="w-full bg-gray-200 h-2 rounded-full mt-1"><div class="bg-black h-2 rounded-full progress-bar" style="width: 40%"></div></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="price" class="content-section">
-        <h2 class="section-title">💸 Price List 💸</h2>
-
-        <div class="price-category">
-            <h3 class="category-title"><i class="fas fa-paint-roller" style="color: #ff9ff3;"></i> งานป้าย / กราฟิก</h3>
-            <ul class="price-list">
-                <li class="price-item"><span class="price-name">บล็อก</span> <span class="price-normal">เริ่มต้น 99฿</span></li>
-                <li class="price-item"><span class="price-name">แนวสว่าง / แนวเรียบ</span> <span class="price-normal">เริ่มต้น 45฿</span></li>
-                <li class="price-item"><span class="price-name">แนวกึ่ง ads.</span> <span class="price-normal">เริ่มต้น 59฿</span></li>
-                <li class="price-item"><span class="price-name">งานป้าย</span> <span class="price-normal">เริ่มต้น 49฿</span></li>
-                <li class="price-item"><span class="price-name">Set ปกกลุ่ม+กรอบ</span> <span class="price-normal">เริ่ม 99฿</span></li>
-                <li class="price-item"><span class="price-name">ป้ายเรท</span> <span class="price-normal">เริ่มต้น 70฿</span></li>
-                <li class="price-item"><span class="price-name">ป้ายเบอร์เงิน/ทอง</span> <span class="price-normal">เริ่มต้น 65฿</span></li>
-                <li class="price-item"><span class="price-name">บัตรสะสมแต้ม</span> <span class="price-normal">เริ่มต้น 89฿</span></li>
-                <li class="price-item"><span class="price-name">ปก X / ปกไลน์ off.</span> <span class="price-normal">เริ่ม 69฿ / 80฿</span></li>
-                <li class="price-item"><span class="price-name">ริชเมนู (เล็ก / ใหญ่)</span> <span class="price-normal">เริ่ม 69฿ / 100฿</span></li>
-                <li class="price-item"><span class="price-name">ลายน้ำรูปตัวเอง</span> <span class="price-normal">เริ่ม 45฿</span></li>
-            </ul>
-        </div>
-
-        <div class="price-category">
-            <h3 class="category-title"><i class="fas fa-certificate" style="color: #feca57;"></i> ลายน้ำแบบเหมา</h3>
-            <h4 style="color: #ff7675; font-size: 1.2rem; margin-top:0;">🌈 แบบสีสัน (ปกติ 25฿)</h4>
-            <ul class="price-list">
-                <li class="price-item"><span class="price-name">5 งาน</span> <span class="price-normal">125฿</span></li>
-                <li class="price-item"><span class="price-name">10 งาน</span> <div><span class="price-original">250฿</span><span class="price-discount">240฿</span><span class="save-badge">ลด 10฿</span></div></li>
-                <li class="price-item"><span class="price-name">15 งาน</span> <div><span class="price-original">375฿</span><span class="price-discount">360฿</span><span class="save-badge">ลด 15฿</span></div></li>
-                <li class="price-item"><span class="price-name">20 งาน</span> <div><span class="price-original">500฿</span><span class="price-discount">470฿</span><span class="save-badge">ลด 30฿</span></div></li>
-                <li class="price-item"><span class="price-name">30 งาน</span> <div><span class="price-original">750฿</span><span class="price-discount">700฿</span><span class="save-badge">ลด 50฿</span></div></li>
-            </ul>
-            <h4 style="margin-top: 20px; color: #576574; font-size: 1.2rem;">🖤 สีขาวดำ (ปกติ 15฿)</h4>
-            <ul class="price-list">
-                <li class="price-item"><span class="price-name">5 งาน</span> <span class="price-normal">75฿</span></li>
-                <li class="price-item"><span class="price-name">10 งาน</span> <div><span class="price-original">150฿</span><span class="price-discount">145฿</span><span class="save-badge">ลด 5฿</span></div></li>
-                <li class="price-item"><span class="price-name">20 งาน</span> <div><span class="price-original">300฿</span><span class="price-discount">275฿</span><span class="save-badge">ลด 25฿</span></div></li>
-            </ul>
-        </div>
-
-        <div class="price-category">
-            <h3 class="category-title"><i class="fas fa-book" style="color: #48dbfb;"></i> งานทั่วไป & การบ้าน</h3>
-            <ul class="price-list">
-                <li class="price-item"><span class="price-name">สไลด์นำเสนอ</span> <span class="price-normal">หน้าละ 20฿</span></li>
-                <li class="price-item"><span class="price-name">อินโฟกราฟิก</span> <span class="price-normal">เริ่มต้น 79฿</span></li>
-                <li class="price-item"><span class="price-name">มายแมพ (พิมพ์/เขียน)</span> <span class="price-normal">เริ่ม 60฿/70฿</span></li>
-                <li class="price-item"><span class="price-name">งานลอก (สมุด/รายงาน)</span> <span class="price-normal">หน้าละ 10฿/15฿</span></li>
-                <li class="price-item"><span class="price-name">คณิตศาสตร์ (ตอบ/วิธีทำ)</span> <span class="price-normal">ข้อละ 5฿/10฿</span></li>
-                <li class="price-item"><span class="price-name">ภาษาอังกฤษ</span> <span class="price-normal">ข้อละ 3-5฿</span></li>
-            </ul>
-        </div>
-
-        <div class="price-category" style="background: #fff3f5; border-top:none; font-size: clamp(0.9rem, 3.5vw, 1rem);">
-            <strong>📌 หมายเหตุเพิ่มเติม:</strong><br>
-            <div style="margin-top: 8px; line-height: 1.6;">
-                - ราคาขึ้นอยู่กับความยากง่าย + ระยะเวลา<br>
-                - <span style="color:#ff4757; font-weight: 500;">งานเร่งบวกราคาเพิ่ม 50-150฿</span><br>
-                - ทุกงานทำเป็นความลับ / รองานปกติ 5-12 วัน<br>
-                - บริการส่งงานเป็นพัสดุทั่วประเทศ
+            <div class="grid md:grid-cols-2 gap-4 mb-10">
+                <img src="https://drive.google.com/uc?export=view&id=1GWFlQ4C3Tyr0KF_GWt8x6cMzOswHSiV6" class="w-full h-auto rounded-xl shadow-md object-cover" alt="Image 1">
+                <img src="https://drive.google.com/uc?export=view&id=1slRQ0Rpq7DnZp95yX_5TgqGHIr_IMd6k" class="w-full h-auto rounded-xl shadow-md object-cover" alt="Image 2">
             </div>
-        </div>
-    </section>
-
-    <section id="step" class="content-section">
-        <h2 class="section-title">🐾 กติกาการจ้างงาน 🐾</h2>
-        <p style="text-align: center; color: #888; margin-bottom: 25px; font-size: clamp(0.95rem, 3.5vw, 1.1rem);">โปรดอ่านทุกครั้งก่อนตัดสินใจจ้างงานนะคะ</p>
-
-        <div class="rule-card">
-            <div class="rule-icon">1️⃣</div>
-            <div class="rule-content">
-                <h4>สรุปงานก่อนเริ่ม</h4>
-                <p>เมื่อบรีฟเสร็จ ทางร้านจะส่งสรุปงานให้เป็นหลัก หากมีการแก้ไข/เพิ่มเติมหลังงานเสร็จ อาจมีค่าใช้จ่ายบวกเพิ่ม ควรบรีฟให้ครบตั้งแต่แรกค่ะ</p>
-            </div>
-        </div>
-
-        <div class="rule-card">
-            <div class="rule-icon">2️⃣</div>
-            <div class="rule-content">
-                <h4>กติกาการโอนเงิน</h4>
-                <p>• <strong>โอน 100%</strong>: โอนเต็มจำนวนก่อนเริ่มงาน<br>
-                   • <strong>โอน 50%</strong>: (ยอด 300฿ ขึ้นไป) จะไม่มีอัพเดทงานระหว่างทำ และต้องโอนที่เหลือก่อนรับงาน</p>
-            </div>
-        </div>
-
-        <div class="rule-card">
-            <div class="rule-icon">3️⃣</div>
-            <div class="rule-content">
-                <h4>จองคิว = โอนเงิน</h4>
-                <p>ขอสงวนสิทธิ์ไม่คืนเงินทุกกรณีหากลูกค้าขอยกเลิกงาน และทางร้านไม่รับเริ่มงานก่อนโอนเงินไม่ว่ากรณีใดๆ ทั้งสิ้น</p>
-            </div>
-        </div>
-
-        <div class="rule-card" style="border: 2px dashed #ffd32a; background: #fffdf5;">
-            <div class="rule-icon" style="color: #ffd32a;">⚡</div>
-            <div class="rule-content">
-                <h4>เรทราคาเร่งด่วน</h4>
-                <p>ภายใน 24 ชม. <strong>+50฿</strong><br>ภายใน 3 ชม. <strong>+100฿</strong></p>
-            </div>
-        </div>
-
-        <div class="alert-box">
-            <h4><i class="fas fa-exclamation-triangle"></i> คำเตือน</h4>
-            <ul>
-                <li>ไม่รับทำงานตามแบบร้านอื่นทุกกรณี</li>
-                <li>ห้ามนำงานที่สั่งทำไปขายต่อ (ต้องแจ้งก่อน)</li>
-                <li>ห้ามนำงานของร้านไปให้ที่อื่นทำ</li>
-                <li>ห้ามแอบอ้างผลงานทุกกรณี</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="example" class="content-section">
-        <h2 class="section-title">🖼️ Example Works 🖼️</h2>
-        <p style="text-align: center; margin-bottom: 20px;">ตัวอย่างผลงานพร้อมราคาอ้างอิง</p>
-        
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/400x300/ffb7c5/ffffff?text=Example+1" class="gallery-img" alt="งานตัวอย่าง">
-                <div class="gallery-info">ป้ายเมนู - 150฿</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/400x300/74b9ff/ffffff?text=Example+2" class="gallery-img" alt="งานตัวอย่าง">
-                <div class="gallery-info">ลายน้ำแบบเหมา - 240฿</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/400x300/feca57/ffffff?text=Example+3" class="gallery-img" alt="งานตัวอย่าง">
-                <div class="gallery-info">โปสเตอร์กราฟิก - 60฿</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://via.placeholder.com/400x300/2ed573/ffffff?text=Example+4" class="gallery-img" alt="งานตัวอย่าง">
-                <div class="gallery-info">มายแมพแบบเขียน - 70฿</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="content-section">
-        <h2 class="section-title">💌 ช่องทางการติดต่อ 💌</h2>
-        <div class="intro-box contact-container">
-            <div class="profile-img" style="width: 100px; height: 100px; margin-bottom: 20px;"></div>
-            <h3 style="font-size: clamp(1.2rem, 5vw, 1.5rem); color: var(--primary-pink); margin-top:0;">Bebby / Admin Ice</h3>
-            <p style="margin-bottom: 30px; font-size: clamp(0.95rem, 3.5vw, 1.1rem);">พร้อมตอบเสมอ ทักมาสอบถามคิวงานก่อนได้เลยค่า 💕</p>
-
-            <a href="https://line.me/ti/p/~@741eynzz" target="_blank" class="contact-btn btn-line">
-                <i class="fab fa-line fa-2x"></i> LINE: @741eynzz
-            </a>
+        </section>
+        <section id="price" class="tab-content">
+            <h2 class="text-3xl font-bold text-center mb-8">Price List <br><span class="text-lg font-normal text-gray-500">รายการสินค้าและราคา</span></h2>
             
-            <a href="#" class="contact-btn" style="border: 2px solid #e84393; color: #e84393;">
-                <i class="fab fa-instagram fa-2x"></i> Instagram (DM)
-            </a>
-        </div>
-    </section>
-</div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2">งานออกแบบทั่วไป</h3>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between"><span>บล็อก</span> <span>เริ่มต้น 99฿</span></li>
+                        <li class="flex justify-between"><span>แนวสว่าง / แนวเรียบ</span> <span>เริ่มต้น 45฿</span></li>
+                        <li class="flex justify-between"><span>แนวกึ่ง ads.</span> <span>เริ่มต้น 59฿</span></li>
+                        <li class="flex justify-between"><span>งานป้าย</span> <span>เริ่มต้น 49฿</span></li>
+                        <li class="flex justify-between"><span>Set ปกกลุ่ม + กรอบตัวอย่าง</span> <span>เริ่ม 99฿</span></li>
+                        <li class="flex justify-between"><span>ป้ายเรท</span> <span>เริ่ม 70฿</span></li>
+                        <li class="flex justify-between"><span>ป้ายเบอร์เงิน/ทอง</span> <span>เริ่ม 65฿</span></li>
+                        <li class="flex justify-between"><span>บัตรสะสมแต้ม</span> <span>เริ่ม 89฿</span></li>
+                        <li class="flex justify-between"><span>ปก x / ปกไลน์ official</span> <span>เริ่ม 69฿ / 80฿</span></li>
+                        <li class="flex justify-between"><span>ริชเมนู (เล็ก/ใหญ่)</span> <span>69฿ / 100-120฿</span></li>
+                    </ul>
+                </div>
 
-<div style="position: absolute; width: 0; height: 0; overflow: hidden; left: -1000px;">
-    <div id="youtube-player"></div>
-</div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2">โปรโมชั่น ลายน้ำ</h3>
+                    
+                    <h4 class="font-semibold text-pink-600 mt-2">✨ แบบสีสัน (งานละ 25฿)</h4>
+                    <ul class="space-y-1 text-sm mt-2 mb-4">
+                        <li class="flex justify-between"><span>5 งาน</span> <span>125฿</span></li>
+                        <li class="flex justify-between"><span>10 งาน (ลด 10฿)</span> <span><s class="text-red-500 text-xs">250฿</s> 240฿</span></li>
+                        <li class="flex justify-between"><span>15 งาน (ลด 15฿)</span> <span><s class="text-red-500 text-xs">375฿</s> 360฿</span></li>
+                        <li class="flex justify-between"><span>20 งาน (ลด 30฿)</span> <span><s class="text-red-500 text-xs">500฿</s> 470฿</span></li>
+                        <li class="flex justify-between"><span>25 งาน (ลด 40฿)</span> <span><s class="text-red-500 text-xs">625฿</s> 585฿</span></li>
+                        <li class="flex justify-between"><span>30 งาน (ลด 50฿)</span> <span><s class="text-red-500 text-xs">750฿</s> 700฿</span></li>
+                        <li class="flex justify-between"><span>35 งาน (ลด 60฿)</span> <span><s class="text-red-500 text-xs">875฿</s> 815฿</span></li>
+                        <li class="flex justify-between"><span>40 งาน (ลด 75฿)</span> <span><s class="text-red-500 text-xs">1000฿</s> 925฿</span></li>
+                    </ul>
 
-<nav class="bottom-bar">
-    <ul class="tabs">
-        <li class="tab-item active" onclick="showTab('home')">
-            <span class="icon">🏠</span><span class="text">Home</span>
-        </li>
-        <li class="tab-item" onclick="showTab('price')">
-            <span class="icon">💸</span><span class="text">Price</span>
-        </li>
-        <li class="tab-item" onclick="showTab('step')">
-            <span class="icon">🐾</span><span class="text">Step</span>
-        </li>
-        <li class="tab-item" onclick="showTab('example')">
-            <span class="icon">🖼️</span><span class="text">Example</span>
-        </li>
-        <li class="tab-item" onclick="showTab('contact')">
-            <span class="icon">💌</span><span class="text">Contact</span>
-        </li>
-    </ul>
-</nav>
+                    <h4 class="font-semibold text-gray-800 border-t pt-2">แบบสีขาว-ดำ (งานละ 15฿)</h4>
+                    <ul class="space-y-1 text-sm mt-2">
+                        <li class="flex justify-between"><span>5 งาน</span> <span>75฿</span></li>
+                        <li class="flex justify-between"><span>10 งาน (ลด 5฿)</span> <span><s class="text-red-500 text-xs">150฿</s> 145฿</span></li>
+                        <li class="flex justify-between"><span>15 งาน (ลด 15฿)</span> <span><s class="text-red-500 text-xs">225฿</s> 210฿</span></li>
+                        <li class="flex justify-between"><span>20 งาน (ลด 25฿)</span> <span><s class="text-red-500 text-xs">300฿</s> 275฿</span></li>
+                        <li class="flex justify-between"><span>25 งาน (ลด 30฿)</span> <span><s class="text-red-500 text-xs">375฿</s> 345฿</span></li>
+                        <li class="flex justify-between"><span>30 งาน (ลด 35฿)</span> <span><s class="text-red-500 text-xs">450฿</s> 415฿</span></li>
+                        <li class="flex justify-between"><span>35 งาน (ลด 45฿)</span> <span><s class="text-red-500 text-xs">525฿</s> 480฿</span></li>
+                        <li class="flex justify-between"><span>40 งาน (ลด 60฿)</span> <span><s class="text-red-500 text-xs">600฿</s> 540฿</span></li>
+                    </ul>
+                </div>
 
-<script>
-    // 1. ฟังก์ชันเปลี่ยนแถบเมนู
-    function showTab(tabId) {
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.classList.remove('active-section');
-        });
-        document.querySelectorAll('.tab-item').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        
-        document.getElementById(tabId).classList.add('active-section');
-        event.currentTarget.classList.add('active');
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+                <div class="bg-white p-6 rounded-xl shadow-sm md:col-span-2">
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2">เรทราคารับงานอื่นๆ</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p><b>สไลด์นำเสนอ:</b> เริ่มหน้าละ 20฿</p>
+                            <p><b>อินโฟกราฟิก/แผ่นพับ:</b> เริ่ม 79฿</p>
+                            <p><b>มายแมพ:</b> พิมพ์เริ่ม 60฿ / เขียนเริ่ม 70฿</p>
+                            <p><b>เรียงความ:</b> เริ่ม 150฿</p>
+                            <br>
+                            <p><b>งานลอก:</b> สมุด/ไอแพด หน้าละ 10฿ | รายงาน หน้าละ 15฿ | A4 หน้าละ 20฿</p>
+                            <p><b>การบ้าน:</b> คณิตข้อละ 5฿ (แสดงวิธีทำ 10฿) | อังกฤษ ข้อละ 3-5฿</p>
+                        </div>
+                        <div>
+                            <p><b>งานศิลปะ:</b> วาดภาพเริ่ม 70฿ | หนังสือเล็กเริ่ม 99฿ | ป๊อปอัพ 150฿</p>
+                            <p><b>ลายเส้น/ลายไทย:</b> เริ่ม 70฿ / 80฿</p>
+                            <br>
+                            <p><b>งานออกแบบ (มีข้อมูล / ไม่มีข้อมูล):</b></p>
+                            <p>โปสเตอร์: 60.- / 65.-</p>
+                            <p>มายแมพ: 60.- / 65.-</p>
+                            <p>แผ่นพับ: 70.- / 80.-</p>
+                            <p>เรซูเม่: 60.- / -</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    // 2. ลูกเล่นจิ้มจอเด้งอิโมจิ
-    const emojis = ['🧸', '🪿', '🎨', '⭐️', '🍄', '💖', '✨', '🐾', '🎀', '🪄'];
-    
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.bottom-bar') || e.target.closest('a')) return;
+        <section id="step" class="tab-content">
+            <h2 class="text-3xl font-bold text-center mb-8">ขั้นตอนและกติกา <br><span class="text-lg font-normal text-gray-500">How to order</span></h2>
+            
+            <div class="bg-white p-8 rounded-xl shadow-sm mb-6">
+                <h3 class="text-xl font-bold mb-6 text-red-600"><i class="fas fa-exclamation-circle"></i> โปรดอ่านทุกครั้งก่อนตัดสินใจจ้างงาน</h3>
+                
+                <div class="timeline-item">
+                    <h4 class="font-bold">1. การบรีฟและสรุปงาน</h4>
+                    <p class="text-sm text-gray-600 mt-1">เมื่อจ้างงานกับทางร้าน จะมีสรุปงานหลังจากที่ลูกค้าแจ้งหรือรับงานเสร็จเรียบร้อยทุกครั้ง ทางร้านจะมีตัวอย่างสรุปงานเป็นหลัก หากมีการเพิ่มเติมหลังงานเสร็จ อาจมี + เพิ่ม จึงควรบรีฟรายละเอียดตั้งแต่ครั้งแรก</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h4 class="font-bold">2. กติกาการโอนเงิน (โอน = จองคิว)</h4>
+                    <p class="text-sm text-gray-600 mt-1">
+                        <b>โอนแบบ 100%:</b> โอนเต็มจำนวนของราคาที่ตกลงกัน<br>
+                        <b>โอนแบบ 50%:</b> (สำหรับยอด 300.- ขึ้นไป) โอนครึ่งหนึ่งของราคาที่ตกลงกัน ไม่มีการอัพเดทงานระหว่างทำงานก่อนจ่ายที่เหลือและจะโอนครบก่อนส่งงาน
+                    </p>
+                </div>
 
-        const emojiEl = document.createElement('div');
-        emojiEl.className = 'click-emoji';
-        
-        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-        emojiEl.textContent = randomEmoji;
-        
-        emojiEl.style.left = e.pageX + 'px';
-        emojiEl.style.top = e.pageY + 'px';
-        
-        document.body.appendChild(emojiEl);
-        
-        setTimeout(() => { emojiEl.remove(); }, 1000);
-    });
+                <div class="timeline-item">
+                    <h4 class="font-bold">3. การยกเลิกงาน</h4>
+                    <p class="text-sm text-gray-600 mt-1">ในกรณีที่ลูกค้าโอนมาแล้วแต่ต้องการยกเลิกงาน <b>ทางร้านขอสงวนสิทธิ์ไม่คืนเงินทุกกรณี</b> ไม่รับทำก่อนโอนไม่ว่ากรณีใดๆทั้งสิ้น</p>
+                </div>
+            </div>
 
-    // 3. ระบบเล่นเพลงพื้นหลัง YouTube (Autoplay & วนลูป)
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded shadow-sm">
+                    <h3 class="font-bold text-lg mb-2"><i class="fas fa-bolt"></i> เรทราคาเร่งงาน</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between border-b border-yellow-200 pb-1"><span>รับงานภายใน 24 ชม.</span> <span class="font-bold text-red-500">+ 50฿</span></li>
+                        <li class="flex justify-between"><span>รับงานภายใน 3 ชม.</span> <span class="font-bold text-red-500">+ 100฿</span></li>
+                    </ul>
+                </div>
 
-    var player;
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('youtube-player', {
-            height: '10',
-            width: '10',
-            videoId: 'xESVaYvG4xE', // ไอดีของวิดีโอที่ให้มา
-            playerVars: {
-                'autoplay': 1,
-                'loop': 1,
-                'playlist': 'xESVaYvG4xE',
-                'controls': 0
-            },
-            events: {
-                'onReady': function(event) {
-                    event.target.playVideo();
+                <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded shadow-sm">
+                    <h3 class="font-bold text-lg mb-2 text-red-600"><i class="fas fa-ban"></i> คำเตือน</h3>
+                    <ul class="list-disc list-inside text-sm space-y-1 text-gray-700">
+                        <li>ไม่รับทำงานตามร้านอื่นทุกกรณี</li>
+                        <li>ห้ามนำงานที่สั่งทำไปขายต่อเด็ดขาด (ถ้าจะขายต้องแจ้งก่อน)</li>
+                        <li>ห้ามหิ้วหรือนำงานร้านไปให้ที่อื่นทำเด็ดขาด</li>
+                        <li>ห้ามแอบอ้างผลงานทุกกรณี</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="example" class="tab-content">
+            <h2 class="text-3xl font-bold text-center mb-8">ตัวอย่างงาน <br><span class="text-lg font-normal text-gray-500">Examples & Portfolio</span></h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="relative group rounded-xl overflow-hidden shadow-sm">
+                    <img src="https://via.placeholder.com/400x400?text=Work+1" class="w-full h-full object-cover transition transform group-hover:scale-110" alt="Work">
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 text-center text-sm font-bold opacity-0 group-hover:opacity-100 transition">ป้ายบัญชี 59฿</div>
+                </div>
+                <div class="relative group rounded-xl overflow-hidden shadow-sm">
+                    <img src="https://via.placeholder.com/400x400?text=Work+2" class="w-full h-full object-cover transition transform group-hover:scale-110" alt="Work">
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 text-center text-sm font-bold opacity-0 group-hover:opacity-100 transition">ริชเมนู 120฿</div>
+                </div>
+                <div class="relative group rounded-xl overflow-hidden shadow-sm">
+                    <img src="https://via.placeholder.com/400x400?text=Work+3" class="w-full h-full object-cover transition transform group-hover:scale-110" alt="Work">
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 text-center text-sm font-bold opacity-0 group-hover:opacity-100 transition">ลายน้ำ 25฿</div>
+                </div>
+                <div class="relative group rounded-xl overflow-hidden shadow-sm">
+                    <img src="https://via.placeholder.com/400x400?text=Work+4" class="w-full h-full object-cover transition transform group-hover:scale-110" alt="Work">
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 text-center text-sm font-bold opacity-0 group-hover:opacity-100 transition">ปกกลุ่ม 99฿</div>
+                </div>
+            </div>
+            <p class="text-center mt-6 text-gray-500 text-sm">สามารถดูผลงานเพิ่มเติมได้ทาง Google Drive หรือสอบถามทางไลน์</p>
+        </section>
+
+        <section id="contact" class="tab-content text-center">
+            <h2 class="text-3xl font-bold mb-8">Contact Me <br><span class="text-lg font-normal text-gray-500">ช่องทางการติดต่อสั่งงาน</span></h2>
+            
+            <div class="bg-white p-10 rounded-2xl shadow-sm max-w-md mx-auto">
+                <img src="https://via.placeholder.com/100" alt="Profile" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                <h3 class="text-xl font-bold">Admin Ice / Bebby</h3>
+                <p class="text-gray-500 text-sm mb-8">ตอบแชทไว สอบถามคิวงานได้เลยค่ะ</p>
+                
+                <a href="https://line.me/ti/p/~@741eynzz" target="_blank" class="block w-full bg-[#00B900] hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl transition mb-4 shadow-lg shadow-green-200">
+                    <i class="fa-brands fa-line text-xl mr-2"></i> LINE: @741eynzz
+                </a>
+                
+                <div class="text-sm text-gray-400 mt-6 border-t pt-4">
+                    <p>รับงานเป็นความลับระหว่างลูกค้าและทีมงาน</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // ระบบเปลี่ยนหน้าต่าง (Tab System)
+        function changeTab(tabId) {
+            // ซ่อนทุกหน้า
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            // เอาเส้นใต้เมนูออก
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('text-black', 'border-b-2', 'border-black');
+                el.classList.add('text-gray-500');
+            });
+            
+            // โชว์หน้าที่เลือก
+            document.getElementById(tabId).classList.add('active');
+            
+            // ใส่เส้นใต้ให้เมนูที่ถูกเลือก
+            const activeBtn = document.querySelector(`.nav-btn[data-target="${tabId}"]`);
+            activeBtn.classList.remove('text-gray-500');
+            activeBtn.classList.add('text-black', 'border-b-2', 'border-black');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ระบบ YouTube API Music Player
+        // หมายเหตุ: เบราว์เซอร์ปัจจุบันมักจะบล็อกเสียง Autoplay จนกว่าผู้ใช้จะคลิกเล่นเอง
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '0',
+                width: '0',
+                playerVars: {
+                    listType: 'playlist',
+                    list: 'PLHxDBCHg5cGO1juL0HRcJiYYus393MWkm', // ID ของ Playlist
+                    autoplay: 1,
+                    loop: 1,
+                    controls: 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
                 }
-            }
-        });
-    }
+            });
+        }
 
-    // ฟังก์ชันช่วยเปิดเพลงหากเบราว์เซอร์บล็อก Autoplay ในตอนแรก
-    // เพลงจะดังขึ้นเมื่อลูกค้าจิ้มหน้าจอครั้งแรก (จิ้มดูอิโมจิก็ดังเลย!)
-    document.addEventListener('click', function() {
-        if (player && typeof player.playVideo === 'function') {
-            if (player.getPlayerState() !== 1) { // ถ้ายังไม่ได้เล่น ให้เล่นทันที
-                player.playVideo();
+        let isPlaying = false;
+        function onPlayerReady(event) {
+            // ลองสั่งเล่นอัตโนมัติ (อาจถูกเบราว์เซอร์บล็อกหากไม่มี Interaction)
+            event.target.playVideo(); 
+        }
+
+        function onPlayerStateChange(event) {
+            const btn = document.getElementById('playPauseBtn');
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                btn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                isPlaying = false;
+                btn.innerHTML = '<i class="fas fa-play"></i>';
             }
         }
-    }, { once: true }); // ทำงานแค่ครั้งแรกครั้งเดียว
 
-</script>
+        function togglePlay() {
+            if (player && player.getPlayerState) {
+                if (isPlaying) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            }
+        }
 
+        function nextVideo() {
+            if (player && player.nextVideo) {
+                player.nextVideo();
+            }
+        }
+
+        // โหลด YouTube API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
 </body>
 </html>

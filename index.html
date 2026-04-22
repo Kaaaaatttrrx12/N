@@ -21,20 +21,23 @@
             --bg-color: #fffafb;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            /* ใช้ฟอนต์ Mitr เป็นฟอนต์หลักเพื่อให้อ่านง่าย สบายตา */
             font-family: 'Mitr', sans-serif;
             font-weight: 300;
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
             color: var(--dark-text);
-            padding-bottom: 120px; /* เว้นที่ให้เมนูด้านล่าง */
+            padding-bottom: 120px;
             overflow-x: hidden;
             user-select: none;
+            -webkit-tap-highlight-color: transparent; /* ปิดสีไฮไลต์เวลากดบนมือถือ */
         }
 
-        /* หัวข้อต่างๆ ใช้ฟอนต์ Itim ให้น่ารักๆ */
         h1, h2, h3, h4, .section-title {
             font-family: 'Itim', cursive;
             font-weight: 400;
@@ -65,13 +68,14 @@
             100% { transform: translate(-50%, -150px) scale(0.8); opacity: 0; }
         }
 
-        /* ================= CSS แถบเมนูด้านล่าง (Glassmorphism) ================= */
+        /* ================= CSS แถบเมนูด้านล่าง ================= */
         .bottom-bar {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: max-content;
+            max-width: 95%; /* ป้องกันล้นจอในมือถือ */
             padding: 10px 15px;
             background: var(--bottom-bar-bg);
             backdrop-filter: blur(15px);
@@ -88,6 +92,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            justify-content: space-around;
         }
 
         .tab-item {
@@ -108,7 +113,7 @@
         }
 
         .tab-item .text {
-            font-family: 'Itim', cursive; /* ข้อความเมนูให้น่ารัก */
+            font-family: 'Itim', cursive;
             font-size: 1.1rem;
             max-width: 0;
             opacity: 0;
@@ -133,10 +138,10 @@
             margin-left: 10px;
         }
 
-        /* ================= CSS ส่วนของเนื้อหา (Content) ================= */
+        /* ================= CSS ส่วนของเนื้อหา ================= */
         .content-section {
             display: none;
-            max-width: 800px;
+            max-width: 800px; /* ขนาดพอดีสำหรับ iPad/MacBook */
             margin: 20px auto;
             padding: 20px;
             animation: fadeIn 0.5s ease-out forwards;
@@ -149,7 +154,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ---------------- พาร์ท 1: HOME CSS ---------------- */
+        /* ---------------- HOME ---------------- */
         .cover-photo {
             width: 100%; height: 250px;
             background: #eee url('URL_รูปปกหลังของคุณ') center/cover;
@@ -200,7 +205,7 @@
         }
         .drive-link-box:hover { background: var(--accent-color); color: white; transform: scale(1.02); }
 
-        /* ---------------- พาร์ท 2: PRICE CSS ---------------- */
+        /* ---------------- PRICE ---------------- */
         .price-category {
             background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.03); border-top: 5px solid var(--primary-pink);
@@ -214,14 +219,12 @@
         .price-discount { color: #2ed573; font-weight: 500; font-size: 1.15rem; }
         .save-badge { background-color: #ffeaa7; color: #d35400; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; margin-left: 8px; font-weight: 500; }
 
-        /* ---------------- พาร์ท 3: STEP CSS ---------------- */
+        /* ---------------- STEP ---------------- */
         .rule-card {
             background: white; border-radius: 15px; padding: 20px; margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; gap: 15px; align-items: flex-start;
         }
-        .rule-icon {
-            font-size: 2rem; color: var(--primary-pink); min-width: 40px; text-align: center; font-family: 'Itim', cursive;
-        }
+        .rule-icon { font-size: 2rem; color: var(--primary-pink); min-width: 40px; text-align: center; font-family: 'Itim', cursive; }
         .rule-content h4 { margin: 0 0 5px 0; color: var(--dark-text); font-size: 1.2rem; }
         .rule-content p { margin: 0; font-size: 1rem; color: #666; line-height: 1.5; }
         
@@ -231,7 +234,7 @@
         }
         .alert-box ul { margin: 10px 0 0 0; padding-left: 20px; color: #ff4757; font-weight: 400; line-height: 1.6;}
 
-        /* ---------------- พาร์ท 4: EXAMPLE CSS ---------------- */
+        /* ---------------- EXAMPLE ---------------- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
         }
@@ -242,17 +245,63 @@
         .gallery-img { width: 100%; height: 200px; background: #eee; object-fit: cover; }
         .gallery-info { padding: 15px; text-align: center; font-weight: 500; color: var(--primary-pink); font-size: 1.1rem;}
 
-        /* ---------------- พาร์ท 5: CONTACT CSS ---------------- */
+        /* ---------------- CONTACT ---------------- */
         .contact-container { text-align: center; }
         .contact-btn {
             display: flex; align-items: center; justify-content: center; gap: 15px;
             background: white; padding: 15px 30px; border-radius: 50px; text-decoration: none;
             color: var(--dark-text); font-size: 1.2rem; font-weight: 500; margin-bottom: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s; font-family: 'Mitr', sans-serif;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s;
         }
         .contact-btn:hover { transform: scale(1.02); }
         .btn-line { border: 2px solid #06C755; color: #06C755; }
         .btn-line:hover { background: #06C755; color: white; }
+
+        /* ================= MEDIA QUERIES (สำหรับมือถือและไอแพด) ================= */
+        
+        /* แท็บเล็ต (iPad Portrait) / โทรศัพท์แนวนอน */
+        @media (max-width: 768px) {
+            .content-section { padding: 15px; margin-top: 10px; }
+            .cover-photo { height: 200px; }
+            .section-title { font-size: 1.8rem; }
+            .price-category { padding: 20px; }
+        }
+
+        /* โทรศัพท์มือถือแนวตั้ง (Mobile Phones) */
+        @media (max-width: 480px) {
+            .cover-photo { height: 160px; margin-bottom: -50px; }
+            .profile-img { width: 110px; height: 110px; border-width: 4px; }
+            .intro-box { padding: 20px 15px; }
+            .section-title { font-size: 1.6rem; margin-bottom: 20px; }
+            
+            /* ปรับเมนูด้านล่างให้กะทัดรัดขึ้น */
+            .bottom-bar { padding: 8px 10px; width: 92%; }
+            .tabs { gap: 5px; }
+            .tab-item { padding: 10px; }
+            .tab-item .icon { font-size: 1.3rem; }
+            .tab-item.active { padding: 10px 15px; }
+            .tab-item.active .text { font-size: 0.95rem; margin-left: 5px; }
+            
+            /* ปรับหน้าราคา */
+            .category-title { font-size: 1.2rem; }
+            .price-list { font-size: 0.95rem; }
+            .price-item { padding: 12px 0; }
+            .price-discount { font-size: 1.05rem; }
+            .save-badge { font-size: 0.75rem; padding: 2px 6px; }
+
+            /* ปรับหน้ากติกา */
+            .rule-card { flex-direction: column; text-align: center; align-items: center; padding: 15px; }
+            .rule-icon { margin-bottom: 5px; }
+            .alert-box { padding: 15px; font-size: 0.95rem; }
+
+            /* ปรับหน้าตัวอย่างงาน */
+            .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
+            .gallery-img { height: 150px; }
+            .gallery-info { font-size: 1rem; padding: 10px; }
+
+            /* ปรับหน้าติดต่อ */
+            .contact-btn { font-size: 1.1rem; padding: 12px 20px; }
+        }
     </style>
 </head>
 <body>
@@ -318,18 +367,18 @@
             <h4 style="color: #ff7675; font-size: 1.2rem;">🌈 แบบสีสัน (ปกติงานละ 25฿)</h4>
             <ul class="price-list">
                 <li class="price-item"><span>5 งาน</span> <span class="price-normal">125฿</span></li>
-                <li class="price-item"><span>10 งาน</span> <div><span class="price-original">250฿</span><span class="price-discount">240฿</span><span class="save-badge">ลด 10฿</span></div></li>
-                <li class="price-item"><span>15 งาน</span> <div><span class="price-original">375฿</span><span class="price-discount">360฿</span><span class="save-badge">ลด 15฿</span></div></li>
-                <li class="price-item"><span>20 งาน</span> <div><span class="price-original">500฿</span><span class="price-discount">470฿</span><span class="save-badge">ลด 30฿</span></div></li>
-                <li class="price-item"><span>25 งาน</span> <div><span class="price-original">625฿</span><span class="price-discount">585฿</span><span class="save-badge">ลด 40฿</span></div></li>
-                <li class="price-item"><span>30 งาน</span> <div><span class="price-original">750฿</span><span class="price-discount">700฿</span><span class="save-badge">ลด 50฿</span></div></li>
+                <li class="price-item"><span>10 งาน</span> <div style="text-align: right;"><span class="price-original">250฿</span><span class="price-discount">240฿</span><span class="save-badge">ลด 10฿</span></div></li>
+                <li class="price-item"><span>15 งาน</span> <div style="text-align: right;"><span class="price-original">375฿</span><span class="price-discount">360฿</span><span class="save-badge">ลด 15฿</span></div></li>
+                <li class="price-item"><span>20 งาน</span> <div style="text-align: right;"><span class="price-original">500฿</span><span class="price-discount">470฿</span><span class="save-badge">ลด 30฿</span></div></li>
+                <li class="price-item"><span>25 งาน</span> <div style="text-align: right;"><span class="price-original">625฿</span><span class="price-discount">585฿</span><span class="save-badge">ลด 40฿</span></div></li>
+                <li class="price-item"><span>30 งาน</span> <div style="text-align: right;"><span class="price-original">750฿</span><span class="price-discount">700฿</span><span class="save-badge">ลด 50฿</span></div></li>
             </ul>
             <h4 style="margin-top: 20px; color: #576574; font-size: 1.2rem;">🖤 แบบสีขาวดำ (ปกติงานละ 15฿)</h4>
             <ul class="price-list">
                 <li class="price-item"><span>5 งาน</span> <span class="price-normal">75฿</span></li>
-                <li class="price-item"><span>10 งาน</span> <div><span class="price-original">150฿</span><span class="price-discount">145฿</span><span class="save-badge">ลด 5฿</span></div></li>
-                <li class="price-item"><span>15 งาน</span> <div><span class="price-original">225฿</span><span class="price-discount">210฿</span><span class="save-badge">ลด 15฿</span></div></li>
-                <li class="price-item"><span>20 งาน</span> <div><span class="price-original">300฿</span><span class="price-discount">275฿</span><span class="save-badge">ลด 25฿</span></div></li>
+                <li class="price-item"><span>10 งาน</span> <div style="text-align: right;"><span class="price-original">150฿</span><span class="price-discount">145฿</span><span class="save-badge">ลด 5฿</span></div></li>
+                <li class="price-item"><span>15 งาน</span> <div style="text-align: right;"><span class="price-original">225฿</span><span class="price-discount">210฿</span><span class="save-badge">ลด 15฿</span></div></li>
+                <li class="price-item"><span>20 งาน</span> <div style="text-align: right;"><span class="price-original">300฿</span><span class="price-discount">275฿</span><span class="save-badge">ลด 25฿</span></div></li>
             </ul>
         </div>
 
@@ -436,7 +485,7 @@
             <p style="margin-bottom: 30px; font-size: 1.1rem;">พร้อมตอบเสมอ ทักมาสอบถามคิวงานก่อนได้เลยค่า 💕</p>
 
             <a href="https://line.me/ti/p/~@741eynzz" target="_blank" class="contact-btn btn-line">
-                <i class="fab fa-line fa-2x"></i> LINE Official: @741eynzz
+                <i class="fab fa-line fa-2x"></i> LINE: @741eynzz
             </a>
             
             <a href="#" class="contact-btn" style="border: 2px solid #e84393; color: #e84393;">
@@ -483,6 +532,7 @@
         const emojis = ['🧸', '🪿', '🎨', '⭐️', '🍄', '💖', '✨', '🐾', '🎀', '🪄'];
         
         document.addEventListener('click', function(e) {
+            // ไม่แสดงอิโมจิเวลาจิ้มโดนลิงก์หรือเมนูด้านล่าง
             if (e.target.closest('.bottom-bar') || e.target.closest('a')) return;
 
             const emojiEl = document.createElement('div');

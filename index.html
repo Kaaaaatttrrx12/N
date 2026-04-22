@@ -21,7 +21,6 @@
             --bg-color: #fffafb;
         }
 
-        /* บังคับให้ทุกอย่างพอดีกรอบ 100% */
         *, *::before, *::after {
             box-sizing: border-box;
         }
@@ -34,12 +33,11 @@
             color: var(--dark-text);
             font-family: 'Mitr', sans-serif;
             font-weight: 300;
-            overflow-x: hidden; /* ป้องกันการเลื่อนซ้ายขวา 100% */
+            overflow-x: hidden;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* พื้นที่เว้นให้เมนูด้านล่าง */
         .main-wrapper {
             width: 100%;
             padding-bottom: 120px; 
@@ -54,7 +52,7 @@
         .section-title {
             text-align: center;
             color: var(--primary-pink);
-            font-size: clamp(1.8rem, 5vw, 2.5rem); /* ปรับขนาดอักษรตามจอ */
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             margin-bottom: 30px;
             text-shadow: 2px 2px 0px rgba(255, 183, 197, 0.2);
             letter-spacing: 1px;
@@ -82,8 +80,8 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 92%; /* ยืดหยุ่นตามหน้าจอ */
-            max-width: 500px; /* ไม่ให้กว้างเกินไปบนจอคอม */
+            width: 92%;
+            max-width: 500px;
             padding: 8px;
             background: var(--bottom-bar-bg);
             backdrop-filter: blur(15px);
@@ -108,7 +106,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex: 1; /* แบ่งพื้นที่เท่าๆ กัน */
+            flex: 1;
             padding: 12px 0;
             border-radius: 50px;
             cursor: pointer;
@@ -118,7 +116,7 @@
         }
 
         .tab-item .icon {
-            font-size: clamp(1.2rem, 4vw, 1.5rem); /* ไอคอนปรับขนาดอัตโนมัติ */
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
             transition: transform 0.3s;
         }
 
@@ -138,7 +136,7 @@
         .tab-item.active {
             background-color: var(--primary-pink);
             color: white;
-            flex: 2; /* เมื่อกด ให้แถบยืดกว้างขึ้น */
+            flex: 2;
         }
 
         .tab-item.active .text {
@@ -153,7 +151,7 @@
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px 15px; /* ลด Padding เพื่อให้มีที่ในมือถือเยอะขึ้น */
+            padding: 20px 15px;
             animation: fadeIn 0.5s ease-out forwards;
         }
 
@@ -167,7 +165,7 @@
         /* ---------------- HOME ---------------- */
         .cover-photo {
             width: 100%; 
-            height: clamp(150px, 30vw, 250px); /* ความสูงยืดหยุ่น */
+            height: clamp(150px, 30vw, 250px);
             background: #eee url('URL_รูปปกหลังของคุณ') center/cover;
             border-radius: 15px; 
             margin-bottom: clamp(-40px, -8vw, -60px);
@@ -226,7 +224,7 @@
         .price-list { list-style: none; padding: 0; margin: 0; font-size: clamp(0.95rem, 3.5vw, 1.05rem); width: 100%;}
         .price-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #fafafa; flex-wrap: wrap; gap: 5px; }
         .price-item:last-child { border-bottom: none; }
-        .price-name { flex: 1; min-width: 120px; } /* ป้องกันชื่อยาวทะลุ */
+        .price-name { flex: 1; min-width: 120px; }
         .price-normal { font-weight: 500; color: var(--accent-color); white-space: nowrap; }
         .price-original { text-decoration: line-through; color: #ff4757; font-size: 0.85rem; margin-right: 5px; }
         .price-discount { color: #2ed573; font-weight: 500; font-size: 1.1rem; }
@@ -251,7 +249,7 @@
         /* ---------------- EXAMPLE ---------------- */
         .gallery-grid {
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* ยืดหยุ่นจัดเรียง 2-4 คอลัมน์ตามจอ */
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
             width: 100%;
         }
@@ -261,7 +259,7 @@
         }
         .gallery-img { 
             width: 100%; 
-            aspect-ratio: 4 / 3; /* ให้ภาพสมส่วนเสมอ */
+            aspect-ratio: 4 / 3;
             object-fit: cover; 
             background: #eee; 
         }
@@ -278,11 +276,10 @@
         }
         .btn-line { border: 2px solid #06C755; color: #06C755; }
         
-        /* ================= MEDIA QUERIES พิเศษสำหรับมือถือเครื่องเล็ก ================= */
         @media (max-width: 480px) {
             .rule-card { flex-direction: column; align-items: center; text-align: center; }
             .rule-icon { margin-bottom: 10px; }
-            .price-item { flex-direction: column; align-items: flex-start; } /* ถ้าราคาและชื่อเบียดกัน ให้ตกลงมาบรรทัดใหม่ */
+            .price-item { flex-direction: column; align-items: flex-start; }
             .price-item div, .price-normal { align-self: flex-end; }
         }
     </style>
@@ -477,6 +474,10 @@
     </section>
 </div>
 
+<div style="position: absolute; width: 0; height: 0; overflow: hidden; left: -1000px;">
+    <div id="youtube-player"></div>
+</div>
+
 <nav class="bottom-bar">
     <ul class="tabs">
         <li class="tab-item active" onclick="showTab('home')">
@@ -498,6 +499,7 @@
 </nav>
 
 <script>
+    // 1. ฟังก์ชันเปลี่ยนแถบเมนู
     function showTab(tabId) {
         document.querySelectorAll('.content-section').forEach(section => {
             section.classList.remove('active-section');
@@ -512,6 +514,7 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // 2. ลูกเล่นจิ้มจอเด้งอิโมจิ
     const emojis = ['🧸', '🪿', '🎨', '⭐️', '🍄', '💖', '✨', '🐾', '🎀', '🪄'];
     
     document.addEventListener('click', function(e) {
@@ -530,6 +533,43 @@
         
         setTimeout(() => { emojiEl.remove(); }, 1000);
     });
+
+    // 3. ระบบเล่นเพลงพื้นหลัง YouTube (Autoplay & วนลูป)
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youtube-player', {
+            height: '10',
+            width: '10',
+            videoId: 'xESVaYvG4xE', // ไอดีของวิดีโอที่ให้มา
+            playerVars: {
+                'autoplay': 1,
+                'loop': 1,
+                'playlist': 'xESVaYvG4xE',
+                'controls': 0
+            },
+            events: {
+                'onReady': function(event) {
+                    event.target.playVideo();
+                }
+            }
+        });
+    }
+
+    // ฟังก์ชันช่วยเปิดเพลงหากเบราว์เซอร์บล็อก Autoplay ในตอนแรก
+    // เพลงจะดังขึ้นเมื่อลูกค้าจิ้มหน้าจอครั้งแรก (จิ้มดูอิโมจิก็ดังเลย!)
+    document.addEventListener('click', function() {
+        if (player && typeof player.playVideo === 'function') {
+            if (player.getPlayerState() !== 1) { // ถ้ายังไม่ได้เล่น ให้เล่นทันที
+                player.playVideo();
+            }
+        }
+    }, { once: true }); // ทำงานแค่ครั้งแรกครั้งเดียว
+
 </script>
 
 </body>
